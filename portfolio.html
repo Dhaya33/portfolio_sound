@@ -1,0 +1,413 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Shatakshi Singh — UI/UX Designer (Portfolio)</title>
+
+  <!-- Google font -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --bg:#0f1724;
+      --card:#0b1220;
+      --muted:#9aa4b2;
+      --accent:#6ee7b7;
+      --glass: rgba(255,255,255,0.04);
+      --radius:14px;
+      font-family: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      background: linear-gradient(180deg,#071028 0%, #071323 55%);
+      color:#e6eef6;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      line-height:1.45;
+      font-size:16px;
+      padding:32px;
+    }
+
+    /* container */
+    .wrap{
+      max-width:1100px;
+      margin:0 auto;
+      display:grid;
+      gap:28px;
+      grid-template-columns: 320px 1fr;
+    }
+
+    /* sidebar */
+    .sidebar{
+      background: linear-gradient(180deg,var(--card), rgba(8,12,18,0.6));
+      padding:24px;
+      border-radius:var(--radius);
+      box-shadow: 0 8px 30px rgba(2,6,12,0.6);
+      position:sticky;
+      top:32px;
+      height:fit-content;
+    }
+    .avatar{
+      width:100%;
+      border-radius:12px;
+      overflow:hidden;
+      height:220px;
+      background:linear-gradient(135deg,var(--accent), #60a5fa);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      color:#072034;
+      font-weight:700;
+      font-size:20px;
+    }
+    .name{
+      margin-top:14px;
+      font-size:20px;
+      font-weight:700;
+    }
+    .role{color:var(--muted); font-size:13px; margin-top:6px}
+    .contact{margin-top:16px; font-size:14px}
+    .contact a{color:var(--accent); text-decoration:none}
+    .skills{
+      margin-top:18px;
+      display:flex;
+      flex-wrap:wrap;
+      gap:8px;
+    }
+    .chip{
+      background:var(--glass);
+      padding:8px 10px;
+      border-radius:999px;
+      font-size:13px;
+      color:var(--muted);
+      border:1px solid rgba(255,255,255,0.03);
+    }
+
+    /* main */
+    .main{
+      display:flex;
+      flex-direction:column;
+      gap:20px;
+    }
+    .hero{
+      background: linear-gradient(180deg, rgba(255,255,255,0.02), transparent);
+      padding:22px;
+      border-radius:var(--radius);
+      box-shadow: 0 6px 20px rgba(2,6,12,0.45);
+      display:flex;
+      gap:18px;
+      align-items:center;
+    }
+    .intro{
+      flex:1;
+    }
+    .intro h1{margin:0; font-size:22px}
+    .intro p{margin:8px 0 0; color:var(--muted)}
+    .cta{
+      display:flex;
+      gap:10px;
+      margin-top:14px;
+    }
+    .btn{
+      padding:10px 14px;
+      border-radius:10px;
+      background:transparent;
+      color:var(--accent);
+      border:1px solid rgba(110,231,183,0.12);
+      cursor:pointer;
+      font-weight:600;
+    }
+    .btn-primary{
+      background:linear-gradient(90deg,var(--accent), #60a5fa);
+      color:#072034;
+      border:none;
+    }
+
+    /* projects grid */
+    .projects{
+      display:grid;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap:16px;
+    }
+    .card{
+      background: linear-gradient(180deg, rgba(255,255,255,0.02), transparent);
+      border-radius:12px;
+      padding:12px;
+      display:flex;
+      flex-direction:column;
+      gap:10px;
+      border:1px solid rgba(255,255,255,0.03);
+    }
+    .thumb{
+      height:140px;
+      border-radius:10px;
+      overflow:hidden;
+      background-size:cover;
+      background-position:center;
+      box-shadow: 0 6px 20px rgba(2,6,12,0.35);
+    }
+    .proj-title{font-weight:700; font-size:15px}
+    .proj-desc{color:var(--muted); font-size:13px}
+    .tags{display:flex; gap:8px; flex-wrap:wrap; margin-top:6px}
+    .tag{font-size:12px; background:rgba(255,255,255,0.03); padding:6px 8px; border-radius:8px; color:var(--muted)}
+
+    /* modal */
+    .modal-backdrop{
+      position:fixed; inset:0; display:none; align-items:center; justify-content:center;
+      background:linear-gradient(0deg, rgba(2,6,12,0.6), rgba(2,6,12,0.6));
+      z-index:80;
+    }
+    .modal{
+      width:min(900px,92%);
+      max-height:85vh;
+      overflow:auto;
+      background: linear-gradient(180deg,#071022, #071017);
+      border-radius:12px;
+      padding:18px;
+      border:1px solid rgba(255,255,255,0.04);
+      box-shadow: 0 16px 60px rgba(2,6,12,0.7);
+    }
+    .modal .close{
+      background:transparent; border:none; color:var(--muted); float:right; cursor:pointer; font-size:16px;
+    }
+    .modal .modal-hero{
+      display:flex; gap:16px; align-items:flex-start;
+    }
+    .modal .modal-hero .m-thumb{
+      width:320px; height:180px; border-radius:10px; background-size:cover; background-position:center;
+    }
+    .modal h3{margin:0}
+    .modal p{color:var(--muted)}
+
+    /* footer */
+    footer{margin-top:8px; color:var(--muted); font-size:13px; text-align:center}
+
+    /* responsive */
+    @media (max-width:980px){
+      .wrap{grid-template-columns:1fr; padding-bottom:40px}
+      .sidebar{position:relative; top:0}
+      .avatar{height:180px}
+    }
+  </style>
+</head>
+<body>
+
+  <div class="wrap">
+    <!-- SIDEBAR -->
+    <aside class="sidebar" aria-label="profile and contact">
+      <div class="avatar" role="img" aria-label="Profile image or initials">
+        <!-- Replace with an <img> if you have a photo -->
+        SS
+      </div>
+
+      <div class="name">Shatakshi Singh</div>
+      <div class="role">UI / UX Designer</div>
+
+      <div class="contact">
+        <div style="margin-top:10px">📍 Kanchipuram, Tamil Nadu</div>
+        <div style="margin-top:6px">✉️ <a href="mailto:hardikdhaya33@gmail.com">hardikdhaya33@gmail.com</a></div>
+        <div style="margin-top:6px">🔗 <a href="http://www.linkedin.com/in/dhayalan-a-ba9778303" target="_blank" rel="noopener">LinkedIn</a></div>
+      </div>
+
+      <div class="skills" aria-label="skills">
+        <div class="chip">Figma</div>
+        <div class="chip">UI Design</div>
+        <div class="chip">Prototyping</div>
+        <div class="chip">User Research</div>
+        <div class="chip">HTML/CSS</div>
+        <div class="chip">React</div>
+      </div>
+    </aside>
+
+    <!-- MAIN -->
+    <main class="main">
+      <!-- HERO -->
+      <section class="hero" id="about">
+        <div class="intro">
+          <h1>Designing simple, useful and delightful product experiences.</h1>
+          <p>I’m a UI/UX designer focused on product design, prototyping and design systems. I enjoy designing clear user flows and building high-fidelity prototypes that communicate product intent.</p>
+
+          <div class="cta">
+            <button class="btn btn-primary" onclick="scrollToSection('projects')">View Projects</button>
+            <button class="btn" onclick="window.location='#contact'">Contact</button>
+          </div>
+        </div>
+
+        <div style="width:220px; text-align:right;">
+          <div style="font-size:12px; color:var(--muted)">Availability</div>
+          <div style="font-weight:700; margin-top:6px">Open to opportunities</div>
+          <div style="color:var(--muted); margin-top:12px; font-size:13px">
+            <div>Design systems • Product design • Prototyping</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- PROJECTS -->
+      <section>
+        <h2 style="margin:8px 0 12px">Selected Projects</h2>
+
+        <div id="projects" class="projects" aria-live="polite">
+          <!-- project 1 -->
+          <article class="card" tabindex="0" aria-labelledby="p1" onclick="openModal(1)" onkeypress="if(event.key==='Enter')openModal(1)">
+            <div class="thumb" style="background-image:url('https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=80&w=1200&auto=format&fit=crop&ixlib=rb-4.0.3&s=6f0f6a');"></div>
+            <div>
+              <div id="p1" class="proj-title">Design System — SaaS Dashboard</div>
+              <div class="proj-desc">Built a modular design system for a B2B analytics dashboard enabling 80% faster feature delivery.</div>
+              <div class="tags">
+                <div class="tag">Figma</div><div class="tag">Design Systems</div><div class="tag">Prototyping</div>
+              </div>
+            </div>
+          </article>
+
+          <!-- project 2 -->
+          <article class="card" tabindex="0" onclick="openModal(2)" onkeypress="if(event.key==='Enter')openModal(2)">
+            <div class="thumb" style="background-image:url('https://images.unsplash.com/photo-1503602642458-232111445657?q=80&w=1200&auto=format&fit=crop&ixlib=rb-4.0.3&s=c4d1a6');"></div>
+            <div>
+              <div class="proj-title">Mobile App Redesign — Health Tracker</div>
+              <div class="proj-desc">Redesigned onboarding & retention flows increasing first-week engagement in prototype testing.</div>
+              <div class="tags">
+                <div class="tag">User Research</div><div class="tag">Mobile UX</div><div class="tag">Figma</div>
+              </div>
+            </div>
+          </article>
+
+          <!-- project 3 -->
+          <article class="card" tabindex="0" onclick="openModal(3)" onkeypress="if(event.key==='Enter')openModal(3)">
+            <div class="thumb" style="background-image:url('https://images.unsplash.com/photo-1498050108023-c5249f4df085?q=80&w=1200&auto=format&fit=crop&ixlib=rb-4.0.3&s=5e0e3e');"></div>
+            <div>
+              <div class="proj-title">Website — Portfolio Rebuild</div>
+              <div class="proj-desc">End-to-end redesign & responsive rebuild focusing on performance and accessibility.</div>
+              <div class="tags">
+                <div class="tag">HTML/CSS</div><div class="tag">Accessibility</div><div class="tag">Performance</div>
+              </div>
+            </div>
+          </article>
+
+          <!-- add more project cards as needed -->
+        </div>
+      </section>
+
+      <!-- contact -->
+      <section id="contact" style="margin-top:8px;">
+        <h2>Contact</h2>
+        <div class="card" style="padding:18px;">
+          <p style="margin:0 0 10px; color:var(--muted)">Interested in working together or want to see more of my work? Reach out below.</p>
+          <form onsubmit="sendMessage(event)">
+            <div style="display:flex; gap:8px; flex-wrap:wrap;">
+              <input name="name" required placeholder="Your name" style="flex:1; padding:10px; border-radius:8px; border:1px solid rgba(255,255,255,0.04); background:transparent; color:inherit;">
+              <input name="email" required placeholder="Your email" style="flex:1; padding:10px; border-radius:8px; border:1px solid rgba(255,255,255,0.04); background:transparent; color:inherit;">
+            </div>
+            <textarea name="message" required placeholder="Message" style="width:100%; margin-top:8px; padding:10px; border-radius:8px; height:110px; border:1px solid rgba(255,255,255,0.04); background:transparent; color:inherit;"></textarea>
+            <div style="display:flex; gap:8px; margin-top:10px;">
+              <button class="btn btn-primary" type="submit">Send message</button>
+              <button class="btn" type="button" onclick="window.location='mailto:hardikdhaya33@gmail.com'">Email directly</button>
+            </div>
+            <div id="formMsg" style="margin-top:10px; color:var(--accent); display:none;"></div>
+          </form>
+        </div>
+      </section>
+
+      <footer>© <!-- you can change name --> Shatakshi Singh • UI/UX Designer</footer>
+    </main>
+  </div>
+
+  <!-- modal template -->
+  <div id="modalRoot" class="modal-backdrop" role="dialog" aria-modal="true" aria-hidden="true">
+    <div class="modal" role="document">
+      <button class="close" onclick="closeModal()" aria-label="Close">✕</button>
+      <div id="modalContent" class="modal-hero">
+        <!-- populated by JS -->
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Simple project data — replace content/images/links
+    const PROJECTS = {
+      1: {
+        title: "Design System — SaaS Dashboard",
+        img: "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=80&w=1400&auto=format&fit=crop&ixlib=rb-4.0.3&s=6f0f6a",
+        desc: "Created a modular design system for a B2B analytics dashboard. Delivered component library, tokens, and documentation to reduce design-to-dev time by 80%.",
+        responsibilities: ["Component library (Figma)", "Design tokens & tokens docs", "Prototyping & handoff", "Accessibility review"],
+        link: ""
+      },
+      2: {
+        title: "Mobile App Redesign — Health Tracker",
+        img: "https://images.unsplash.com/photo-1503602642458-232111445657?q=80&w=1400&auto=format&fit=crop&ixlib=rb-4.0.3&s=c4d1a6",
+        desc: "Redesigned onboarding and retention flows. Conducted usability tests and iterated on high-fidelity prototypes.",
+        responsibilities: ["User interviews", "Wireframes", "High-fidelity UI", "Prototype testing"],
+        link: ""
+      },
+      3: {
+        title: "Website — Portfolio Rebuild",
+        img: "https://images.unsplash.com/photo-1498050108023-c5249f4df085?q=80&w=1400&auto=format&fit=crop&ixlib=rb-4.0.3&s=5e0e3e",
+        desc: "End-to-end redesign focusing on performance, accessibility and responsive experience across devices.",
+        responsibilities: ["Information architecture", "Responsive UI", "Accessibility improvements"],
+        link: ""
+      }
+    };
+
+    function openModal(id){
+      const root = document.getElementById('modalRoot');
+      const content = document.getElementById('modalContent');
+      const p = PROJECTS[id];
+      content.innerHTML = `
+        <div style="flex:1">
+          <h3>${escapeHtml(p.title)}</h3>
+          <p style="margin-top:8px; color:var(--muted)">${escapeHtml(p.desc)}</p>
+          <ul style="margin-top:10px; color:var(--muted);">
+            ${p.responsibilities.map(r => `<li>${escapeHtml(r)}</li>`).join('')}
+          </ul>
+          ${p.link ? `<p style="margin-top:10px"><a href="${p.link}" target="_blank" style="color:var(--accent)">View case study</a></p>` : ''}
+        </div>
+        <div style="margin-left:18px">
+          <div class="m-thumb" style="background-image:url('${p.img}')"></div>
+        </div>
+      `;
+      root.style.display = 'flex';
+      root.setAttribute('aria-hidden','false');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeModal(){
+      const root = document.getElementById('modalRoot');
+      root.style.display = 'none';
+      root.setAttribute('aria-hidden','true');
+      document.body.style.overflow = '';
+    }
+
+    // helper to avoid XSS in this simple template
+    function escapeHtml(s){
+      return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+    }
+
+    // fake contact send
+    function sendMessage(e){
+      e.preventDefault();
+      const f = e.target;
+      const name = f.name.value.trim();
+      const msg = f.message.value.trim();
+      document.getElementById('formMsg').style.display = 'block';
+      document.getElementById('formMsg').textContent = `Thanks ${name}! Your message was sent — I'll get back shortly. (This demo doesn't actually send email.)`;
+      f.reset();
+      setTimeout(()=> document.getElementById('formMsg').style.display = 'none', 6000);
+    }
+
+    function scrollToSection(id){
+      const el = document.getElementById(id);
+      if(el) el.scrollIntoView({behavior:'smooth', block:'start'});
+    }
+
+    // close modal on backdrop click or Esc
+    document.getElementById('modalRoot').addEventListener('click', (ev)=>{
+      if(ev.target.id === 'modalRoot') closeModal();
+    });
+    document.addEventListener('keydown', (ev)=>{
+      if(ev.key === 'Escape') closeModal();
+    });
+  </script>
+</body>
+</html>
